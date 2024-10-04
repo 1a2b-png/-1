@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Green Book - User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('dog2.jpg'); /* 替换为你喜欢的背景图片URL */
+            background-size: cover;  /* 背景图片按比例填满页面，不会被压缩 */
+            background-position: center;
+            background-attachment: fixed; /* 背景固定 */
+            color: #333;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.4); /* 进一步增加透明度 */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #ff7043;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.5); /* 输入框背景也进一步设置透明 */
+        }
+        input[type="file"] {
+            padding: 5px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        #history {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dog Green Book - User Profile</h1>
+
+        <h2>Basic Information</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username" placeholder="Your Username">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Your Email">
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" placeholder="Your Phone (optional)">
+
+        <h2>Pet Information</h2>
+        <label for="pet-name">Pet Name:</label>
+        <input type="text" id="pet-name" placeholder="Your Pet's Name">
+
+        <label for="pet-species">Pet Species:</label>
+        <input type="text" id="pet-species" placeholder="Dog, Cat, etc.">
+
+        <label for="pet-age">Pet Age:</label>
+        <input type="number" id="pet-age" placeholder="Pet's Age">
+
+        <label for="pet-weight">Pet Weight (kg):</label>
+        <input type="number" id="pet-weight" placeholder="Pet's Weight">
+
+        <label for="pet-gender">Pet Gender:</label>
+        <select id="pet-gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+
+        <label for="pet-photo">Upload Pet Photo:</label>
+        <input type="file" id="pet-photo" accept="image/*">
+
+        <button id="view-history">View Browsing History</button>
+        <div id="history"></div>
+
+        <footer>
+            &copy; 2024 Dog Green Book
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('Page loaded successfully');
+
+            // 记录浏览历史
+            let history = JSON.parse(localStorage.getItem('browsingHistory')) || [];
+            history.push(new Date().toLocaleString());
+            localStorage.setItem('browsingHistory', JSON.stringify(history));
+
+            // 查看浏览历史
+            document.getElementById('view-history').addEventListener('click', function () {
+                const historyDiv = document.getElementById('history');
+                historyDiv.innerHTML = '<h3>Browsing History:</h3>';
+                if (history.length === 0) {
+                    historyDiv.innerHTML += '<p>No history found.</p>';
+                } else {
+                    history.forEach(item => {
+                        const p = document.createElement('p');
+                        p.textContent = item;
+                        historyDiv.appendChild(p);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
